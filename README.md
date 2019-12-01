@@ -2,4 +2,4 @@ These scripts automate the rendering of dynamically created Javascript websites 
 
 This script requires Selenium Python bindings and uses a headless Chrome driver. Bash 5.0 is also required for the enabling of the Bash portions.
 
-MAKE SURE TO USE CHMOD TO MAKE THE BASH SCRIPT AND THE PYTHON SCRIPTS EXECUTABLE IN YOUR MACHINE
+MAKE SURE TO USE CHMOD TO MAKE THE BASH SCRIPT AND THE PYTHON SCRIPTS EXECUTABLE ON YOUR MACHINE
