@@ -50,11 +50,12 @@ if __name__ == '__main__':
 		undesireables = ["arial", "arial black", "avant garde", "bookman", "candara", "century schoolbook", "comic sans ms", "courier", "courier new", "garamond", "georgia", "helvetica", "helvetica neue", "impact", "palatino", "roboto", "tahoma", "times", "times new roman", "trebuchet ms", "verdana", "serif", "sans-serif", "sans"]
 		if (element not in already_used) and (element not in undesireables) and (element.isspace() == False) :
 			fonturl = (f"http://fonts.adobe.com/fonts/{element}")
-			print("fonturl: "+ fonturl)
 			try:
 				if urllib.request.urlopen(fonturl).getcode() == 200:
 					outfile.write(URL + "," + element + "," + fonturl + "\n")
+					print("entry: "+ URL + "," + element + "," + fonturl)
 			except:
 				outfile.write(URL + "," + element + "\n")
+				print("entry: "+ URL + "," + element)
 			already_used.append(element)
 	outfile.close()
