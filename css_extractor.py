@@ -36,12 +36,12 @@ if __name__ == '__main__':
 		driver.get(elem)
 		sleep(5)
 		lst_of_fonts = []
-		html = driver.execute_script("return document.getElementsByTagName('html').innerHTML")
+		css = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML") #Remove this and replace it with wget command
 		result = re.compile('font-family\s*?:\s*?(.*?)\s*?[;\}]')
-		result = re.findall(result, html)
+		result = re.findall(result, css)
 		if result:
 			#print(result)
-			print("\n" + html + "\n")
+			print("\n" + css + "\n")
 			for element in result:
 				element = element.replace("font-family", "").replace("}", "").replace(";", "").replace("{", "").replace(":", "")
 				element = element.split(",")
