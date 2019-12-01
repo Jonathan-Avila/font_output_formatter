@@ -35,7 +35,7 @@ if __name__ == '__main__':
 	lst.pop()
 	already_used =[]
 	outfile = open("fonts.csv", "a+")
-	#outfile.write("\r")
+	outfile.write("\r")
 	for element in lst:
 		#(element)
 		if ("w0" in element.lower()):
