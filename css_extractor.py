@@ -2,25 +2,25 @@
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
-import time
+from time import sleep
+from sys import argv
+from os import path
 import re
-import sys
-import os
 if __name__ == '__main__':
-	url = sys.argv[1]
+	url = argv[1]
 	url = url.replace("\n", "").replace("\r", "")
 	chrome_options = Options()
 	chrome_options.add_argument("--headless")
 	driver = webdriver.Chrome(options=chrome_options)
 	driver.get(f"http://{url}/")
-	time.sleep(5)
+	sleep(5)
 	html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
 	outfile = open("full_site.html", "w+")
 	outfile.write(html)
 	outfile.close()
-	outfile_path = os.path.abspath("full_site.html")
+	outfile_path = path.abspath("full_site.html")
 	driver.get('file://' + outfile_path)
-	time.sleep(5)
+	sleep(5)
 	elems = driver.find_elements_by_xpath("//link[@href]")
 	css_links = []
 	font_list = []
@@ -34,7 +34,7 @@ if __name__ == '__main__':
 	for elem in css_links:
 		#print(elem)
 		driver.get(elem)
-		time.sleep(5)
+		sleep(5)
 		lst_of_fonts = []
 		html = driver.execute_script("return document.getElementsByTagName('html')[0].innerHTML")
 		result = re.compile('font-family\s*?:\s*?(.*?)\s*?[;\}]')
@@ -51,9 +51,3 @@ if __name__ == '__main__':
 				#print(font + "\n")
 	font_file.close()
 	driver.close()
-
-
-
-				
-				
-
