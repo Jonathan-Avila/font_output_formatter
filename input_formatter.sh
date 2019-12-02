@@ -1,20 +1,13 @@
 #!/usr/local/bin/bash
-#echo "Enter the list of fonts found";
-#read -d "\`" value;
-#echo "$value" > input.txt;
+
 readarray -t websites < allsites.txt
-for website in "${websites[@]}"
+for website in "${websites[@]}"   # cycles through every site listed in allsites.txt
 	do
 	./css_extractor.py $website;
-	#echo EOF >> input.txt;
-	cat input.txt | tr '\n' '\r\n' | cat > output.csv;
-	#truncate -s-4 output.csv ;
-	#truncate -s -4 input.txt;
-	clear;
+	cat input.txt | tr '\n' '\r\n' | cat > output.csv;  # creates csv copy of input.txt, with formatting
 	./font2csv.py;
-	let num_of_nl=$(wc fonts.csv | gawk {'print $1'});
+	let num_of_nl=$(wc fonts.csv | gawk {'print $1'});  # prints total number of lines after entry additions are performed
 	let lines=$num_of_nl+1;
 	echo -e "there are $lines lines";
-	rm input.txt output.csv
-	#./input_formatter.sh;
+	rm input.txt output.csv  # deletes unnecessary files
 done
