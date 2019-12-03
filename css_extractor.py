@@ -43,6 +43,7 @@ if __name__ == '__main__':
 				prefix = "file://"
 				if elem.startswith(prefix):
 					elem = elem[len(prefix):]
+					elem = "http://" + elem
 					css = requests.get(elem)
 			except:
 				print(elem + ": hyperlink is not a valid http link")
