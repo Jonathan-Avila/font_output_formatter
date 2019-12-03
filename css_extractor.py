@@ -10,9 +10,6 @@ import re
 import subprocess
 if __name__ == '__main__':
 
-	#if len(argv) < 2:
-		#print("all urls checked")
-		#exit()
 	url = argv[1]   # loads website from command line arguments
 	url = url.replace("\n", "").replace("\r", "")  # removes whitespace characters
 	chrome_options = Options()
@@ -25,10 +22,12 @@ if __name__ == '__main__':
 	outfile.write(html)
 	outfile.close()
 	outfile_path = path.abspath("full_site.html")
-	driver.get('file://' + outfile_path)  # Opens loaded site locally
+	local_site = ('file://' + outfile_path)
+	driver.get(local_site)  # Opens loaded site locally
 	sleep(5)
 	elems = driver.find_elements_by_xpath("//link[@href]")  # acquires all embedded css links found within html site
 	css_hyperlinks = []
+	css_hyperlinks.append(f"http://{url}/")
 	font_file = open("input.txt", "w+") 
 	font_file.write(url + "\n")  # writes out url into txt file
 	font_file.close()
@@ -40,7 +39,13 @@ if __name__ == '__main__':
 		try:
 			css = requests.get(elem)  # opens css link to acquire fonts from
 		except:
-			print(elem + ": hyperlink is not a valid http link")
+			try:
+				prefix = "file://"
+				if elem.startswith(prefix):
+					elem = elem[len(prefix):]
+					css = requests.get(elem)
+			except:
+				print(elem + ": hyperlink is not a valid http link")
 		css_file = css.text
 		result = re.compile('font-family\s*?:\s*?(.*?)\s*?[;\}]')  # uses a regular expression function to extract the required font data
 		result = re.findall(result, css_file)
