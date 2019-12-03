@@ -9,6 +9,10 @@ from os import path
 import re
 import subprocess
 if __name__ == '__main__':
+
+	#if len(argv) < 2:
+		#print("all urls checked")
+		#exit()
 	url = argv[1]   # loads website from command line arguments
 	url = url.replace("\n", "").replace("\r", "")  # removes whitespace characters
 	chrome_options = Options()
